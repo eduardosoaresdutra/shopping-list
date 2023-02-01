@@ -1,10 +1,11 @@
 <script>
-    export default {
-        props: ["itemName", "itemQuantity"]
-    }
+export default {
+    name: "ShoppingItem",
+    props: ["itemName", "itemQuantity"]
+}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .shopping-item__wrapper {
         display: flex;
         // justify-content: center;

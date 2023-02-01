@@ -1,25 +1,25 @@
 <script>
-    import AddShoppingItemForm from "../components/AddShoppingItemForm.vue";
-    import NewItemButton from "../components/NewItemButton.vue";
-    import ShoppingItem from "../components/ShoppingItem.vue";
+import AddItemModal from "@/components/AddItemModal.vue";
+import NewItemButton from "../components/NewItemButton.vue";
+import ShoppingItem from "../components/ShoppingItem.vue";
 
-    export default { 
-        components: {
-            ShoppingItem,
-            AddShoppingItemForm,
-            NewItemButton
-        },
-        data() {
-            return {
-                items: [
-                    {
-                        itemName: "Leite",
-                        itemQuantity: 2
-                    },
-                ],
-            }
+export default { 
+    components: {
+        ShoppingItem,
+        NewItemButton,
+        AddItemModal
+    },
+    data() {
+        return {
+            items: [
+                {
+                    itemName: "Leite",
+                    itemQuantity: 2
+                },
+            ],
         }
     }
+}
 </script>
 
 <style lang="scss">
@@ -40,15 +40,7 @@
                 <ShoppingItem :item-name="item.itemName" :item-quantity="item.itemQuantity"></ShoppingItem>
             </div>
         </div>
-        <div class="dashboard-component__wrapper__add-item__wrapper modal" id="addItemModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <AddShoppingItemForm></AddShoppingItemForm>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <AddItemModal></AddItemModal>
         <NewItemButton></NewItemButton>
     </div>
 </template>
