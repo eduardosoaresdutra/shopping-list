@@ -1,18 +1,29 @@
 <script>
-    export default {
-        data() {
-            return {
-                itemName: "",
-                itemQuantity: 0
-            }
+export default {
+    name: "AddItemForm",
+    data() {
+        return {
+            itemName: "",
+            itemQuantity: 0
         }
     }
+}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .input__wrapper {
         display: flex;
         flex-direction: column;
+
+        &__buttons {
+            button {
+                margin: 0 .6rem;
+            }
+        }
+
+        .form-floating {
+            margin: 1rem 0;
+        }
 
         div {
             width: 100%;
@@ -23,7 +34,7 @@
 <template>
     <div class="input__wrapper d-flex justify-center align-items-center">
         <div class="input__wrapper__form">
-            <div class="form-floating w-100">
+            <div class="form-floating">
                 <input class="form-control" type="text" id="itemName" placeholder="Leite">
                 <label for="itemName">Nome do Item</label>
             </div>
@@ -33,8 +44,6 @@
             </div>
         </div>
         <div class="input__wrapper__buttons">
-            <button type="button" class="btn btn-primary w-75" data-bs-dismiss="modal">Adicionar Item</button>
-            <button type="button" class="btn btn-secondary w-25" data-bs-dismiss="modal">Fechar</button>
         </div>
     </div>
 </template>

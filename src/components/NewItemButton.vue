@@ -1,8 +1,10 @@
 <script>
-    export default {}
+export default {
+    name: "NewItemButton"
+}
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .add-item__wrapper {
         position: fixed;
         bottom: 2rem;
