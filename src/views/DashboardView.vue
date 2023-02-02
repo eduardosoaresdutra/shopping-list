@@ -22,14 +22,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .dashboard-component__wrapper {
         width: 100vw;
-
-        &__add-item__wrapper {
-            position: absolute;
-            margin: 35vh 0;
-        }
     }
 </style>
 

@@ -33,7 +33,6 @@ export default {
 
 <template>
     <div class="input__wrapper d-flex justify-center align-items-center">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         <div class="input__wrapper__form">
             <div class="form-floating">
                 <input class="form-control" type="text" id="itemName" placeholder="Leite">
@@ -45,7 +44,6 @@ export default {
             </div>
         </div>
         <div class="input__wrapper__buttons">
-            <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Adicionar Item</button>
         </div>
     </div>
 </template>
