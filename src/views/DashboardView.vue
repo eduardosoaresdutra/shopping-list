@@ -18,6 +18,14 @@ export default {
                 },
             ],
         }
+    },
+    methods: {
+        addItem: function (itemName) {
+            this.items.push({itemName: itemName, itemQuantity: 0})
+        },
+        removeItem: function (index) {
+            this.items.splice(index, 1)
+        }
     }
 }
 </script>
@@ -32,10 +40,10 @@ export default {
     <div class="dashboard-component__wrapper d-flex flex-column justify-content-center align-items-center">
         <div class="dashboard-component__wrapper__shopping-items">
             <div v-for="(item, index) in items" :key="index" class="item">
-                <ShoppingItem :item-name="item.itemName" :item-quantity="item.itemQuantity"></ShoppingItem>
+                <ShoppingItem @removeItem="removeItem" :item-name="item.itemName" :item-index="index" />
             </div>
         </div>
-        <AddItemModal></AddItemModal>
-        <NewItemButton></NewItemButton>
+        <AddItemModal @getItemName="addItem" />
+        <NewItemButton />
     </div>
 </template>

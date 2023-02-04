@@ -1,13 +1,21 @@
 <script>
-import AddItemForm from "./AddItemForm.vue"
 export default {
-  components: { AddItemForm },
-    name: "AddItemModal"
+    name: "AddItemModal",
+    data() {
+        return {
+            itemName: ""
+        }
+    },
+    methods: {
+        sendItemName: function () {
+            this.$emit("getItemName", this.itemName)
+        }
+    }
 }
 </script>
 
 <style scoped lang="scss">
-    .modal-header {
+.modal-header {
         display: flex;
         justify-content: flex-end;
 
@@ -17,6 +25,10 @@ export default {
                 vertical-align: middle;
             }
         }
+    }
+
+    .form-floating {
+        margin: 1rem 0;
     }
 </style>
 
@@ -30,10 +42,13 @@ export default {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <AddItemForm></AddItemForm>
+                    <div class="form-floating">
+                        <input v-model="itemName" class="form-control" type="text" id="itemName" placeholder="Leite">
+                        <label for="itemName">Nome do Item</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Adicionar Item</button>
+                    <button @click="sendItemName" type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Adicionar Item</button>
                 </div>
             </div>
         </div>
