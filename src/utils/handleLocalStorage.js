@@ -1,5 +1,5 @@
-function setObject(object, storageName) {
-    localStorage.setItem(JSON.stringify(object), storageName)
+function setObject(storageName, object) {
+    localStorage.setItem(storageName, JSON.stringify(object))
 }
 
 function getObject(storageName) {

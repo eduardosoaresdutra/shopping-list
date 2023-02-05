@@ -2,7 +2,7 @@
 import AddItemModal from "@/components/AddItemModal.vue";
 import NewItemButton from "../components/NewItemButton.vue";
 import ShoppingItem from "../components/ShoppingItem.vue";
-import { setObject } from "@/utils/handleLocalStorage"
+import { setObject, getObject } from "@/utils/handleLocalStorage"
 
 export default { 
     components: {
@@ -12,7 +12,7 @@ export default {
     },
     data() {
         return {
-            items: [],
+            items: null,
         }
     },
     methods: {
@@ -24,10 +24,10 @@ export default {
         }
     },
     beforeMount() {
-        this.items = JSON.parse(localStorage.getItem("itemStorage")) || []
+        this.items = getObject("itemStorage") || []
     },
     updated() {
-        setObject("itemStorage", JSON.stringify(this.items))
+        setObject("itemStorage", this.items)
     }
 }
 </script>
