@@ -2,6 +2,7 @@
 import AddItemModal from "@/components/AddItemModal.vue";
 import NewItemButton from "../components/NewItemButton.vue";
 import ShoppingItem from "../components/ShoppingItem.vue";
+import { setObject } from "@/utils/handleLocalStorage"
 
 export default { 
     components: {
@@ -11,12 +12,7 @@ export default {
     },
     data() {
         return {
-            items: [
-                {
-                    itemName: "Leite",
-                    itemQuantity: 2
-                },
-            ],
+            items: [],
         }
     },
     methods: {
@@ -26,6 +22,12 @@ export default {
         removeItem: function (index) {
             this.items.splice(index, 1)
         }
+    },
+    beforeMount() {
+        this.items = JSON.parse(localStorage.getItem("itemStorage")) || []
+    },
+    updated() {
+        setObject("itemStorage", JSON.stringify(this.items))
     }
 }
 </script>
