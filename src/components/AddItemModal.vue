@@ -8,7 +8,7 @@ export default {
     },
     methods: {
         sendItemName: function () {
-            this.$emit("getItemName", this.itemName)
+            this.itemName ? this.$emit("getItemName", this.itemName) : null
         }
     }
 }
@@ -48,7 +48,7 @@ export default {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button @click="sendItemName" type="button" class="btn btn-primary w-100" data-bs-dismiss="modal">Adicionar Item</button>
+                    <button @click="sendItemName" type="button" class="btn btn-info w-100" data-bs-dismiss="modal">Adicionar Item</button>
                 </div>
             </div>
         </div>
