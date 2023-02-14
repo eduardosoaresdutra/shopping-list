@@ -3,16 +3,20 @@ import AddItemModal from "@/components/AddItemModal.vue";
 import NewItemButton from "../components/NewItemButton.vue";
 import ShoppingItem from "../components/ShoppingItem.vue";
 import { setObject, getObject } from "@/utils/handleLocalStorage"
+import GenerateListButton from "@/components/GenerateListButton.vue";
 
 export default { 
+    name: "DashboardView",
     components: {
-        ShoppingItem,
-        NewItemButton,
-        AddItemModal
-    },
+    ShoppingItem,
+    NewItemButton,
+    AddItemModal,
+    GenerateListButton
+},
     data() {
         return {
             items: null,
+            showGenerateListBtn: false
         }
     },
     methods: {
@@ -23,11 +27,18 @@ export default {
             this.items.splice(index, 1)
         }
     },
+    computed: {
+        checkGenerateListBtn: function () {
+            return this.items.length > 0 ? true : false
+        }
+    },
     beforeMount() {
         this.items = getObject("itemStorage") || []
+        this.showGenerateListBtn = this.checkGenerateListBtn
     },
     updated() {
         setObject("itemStorage", this.items)
+        this.showGenerateListBtn = this.checkGenerateListBtn
     }
 }
 </script>
@@ -47,5 +58,6 @@ export default {
         </div>
         <AddItemModal @getItemName="addItem" />
         <NewItemButton />
+        <GenerateListButton v-show="showGenerateListBtn" itemsArray="items" />
     </div>
 </template>
