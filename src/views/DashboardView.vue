@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             items: null,
+            list: {},
             showGenerateListBtn: false,
             showList: false
         }
@@ -32,6 +33,9 @@ export default {
         },
         toggleShowList() {
             this.showList === false ? this.showList = true : null
+        },
+        generateList() {
+            this.items.length > 0? this.toggleShowList : null
         }
     },
     computed: {
@@ -65,7 +69,7 @@ export default {
         </div>
         <AddItemModal @getItemName="addItem" />
         <NewItemButton />
-        <GenerateListButton @generateList="toggleShowList" v-if="showGenerateListBtn" itemsArray="items" />
+        <GenerateListButton @generateList="generateList" v-if="showGenerateListBtn" itemsArray="items" />
         <ListComponent v-if="showList" />
     </div>
 </template>
