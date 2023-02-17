@@ -17,7 +17,7 @@ export default {
 <style scoped lang="scss">
 .modal-header {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
 
         button {
             i {
@@ -37,6 +37,7 @@ export default {
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
+                    <h3>Adicione um Item</h3>
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                         <i class="fa-solid fa-xmark"></i>
                     </button>

@@ -4,14 +4,14 @@ export default {
     props: ["itemsArray"],
     methods: {
         generateList() {
-
+            this.$emit("generateList")
         }
     }
 }
 </script>
 
 <template>
-    <button type="button" class="btn btn-info">
+    <button @click="generateList" type="button" class="btn btn-info">
         Gerar lista
     </button>
 </template>
