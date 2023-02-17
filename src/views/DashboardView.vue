@@ -2,8 +2,10 @@
 import AddItemModal from "@/components/AddItemModal.vue";
 import NewItemButton from "../components/NewItemButton.vue";
 import ShoppingItem from "../components/ShoppingItem.vue";
-import { setObject, getObject } from "@/utils/handleLocalStorage"
 import GenerateListButton from "@/components/GenerateListButton.vue";
+import ListComponent from "@/components/ListComponent.vue";
+
+import { setObject, getObject } from "@/utils/handleLocalStorage"
 
 export default { 
     name: "DashboardView",
@@ -11,20 +13,25 @@ export default {
     ShoppingItem,
     NewItemButton,
     AddItemModal,
-    GenerateListButton
+    GenerateListButton,
+    ListComponent
 },
     data() {
         return {
             items: null,
-            showGenerateListBtn: false
+            showGenerateListBtn: false,
+            showList: false
         }
     },
     methods: {
-        addItem: function (itemName) {
+        addItem(itemName) {
             this.items.push({itemName: itemName, itemQuantity: 0})
         },
-        removeItem: function (index) {
+        removeItem(index) {
             this.items.splice(index, 1)
+        },
+        toggleShowList() {
+            this.showList === false ? this.showList = true : null
         }
     },
     computed: {
@@ -58,6 +65,7 @@ export default {
         </div>
         <AddItemModal @getItemName="addItem" />
         <NewItemButton />
-        <GenerateListButton v-show="showGenerateListBtn" itemsArray="items" />
+        <GenerateListButton @generateList="toggleShowList" v-if="showGenerateListBtn" itemsArray="items" />
+        <ListComponent v-if="showList" />
     </div>
 </template>
