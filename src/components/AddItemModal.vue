@@ -9,6 +9,7 @@ export default {
     methods: {
         addItem() {
             this.$store.dispatch("addItem", this.itemName)
+            this.itemName = ""
         }
     }
 }

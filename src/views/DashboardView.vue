@@ -30,13 +30,16 @@ export default {
         }
     },
     computed: {
-        checkGenerateListBtn: function () {
+        getItems() {
+            return this.$store.getters.getItems
+        },
+        checkGenerateListBtn() {
             return this.items.length > 0 ? true : false
         }
     },
     mounted() {
         this.$store.dispatch("getItemsFromLocal")
-        this.items = this.$store.getters.getItems
+        this.items = this.getItems
         this.showGenerateListBtn = this.checkGenerateListBtn
     },
     updated() {
@@ -54,8 +57,8 @@ export default {
 <template>
     <div class="dashboard-component__wrapper d-flex flex-column justify-content-center align-items-center">
         <div class="dashboard-component__wrapper__shopping-items">
-            <div v-for="(item, index) in items" :key="index" class="item">
-                <ShoppingItem :item-name="item.itemName" :item-index="index" />
+            <div v-for="(item, index) in items" :key="item.itemId" class="item">
+                <ShoppingItem :itemProp="item" :item-index="index" />
             </div>
         </div>
         <AddItemModal />

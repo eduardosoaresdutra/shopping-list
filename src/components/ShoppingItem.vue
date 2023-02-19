@@ -3,19 +3,24 @@ export default {
     name: "ShoppingItem",
     data() {
         return {
-            item: {
-                index: this.itemIndex,
-                name: this.itemName,
-                quantity: 0
-            }
+            item: null
         }
     },
     methods: {
         removeItem() {
-            this.$store.dispatch('removeItem', this.item.index)
+            this.$store.dispatch("removeItem", this.itemIndex)
+        },
+        updateItem() {
+            this.$store.dispatch("updateItem", [this.itemIndex, this.item])
         }
     },
-    props: ["itemName", "itemIndex"]
+    props: ["itemProp", "itemIndex"],
+    beforeMount() {
+        this.item = this.itemProp
+    },
+    updated() {
+        this.updateItem()
+    }
 }
 </script>
 
@@ -63,8 +68,8 @@ export default {
 
 <template>
     <div class="shopping-item__wrapper d-flex align-items-center">
-        <input class="form-check-input" type="checkbox" id="shoppingItemCheckbox">
-        <label class="form-check-label" >{{ itemName }}</label>
+        <input class="form-check-input" type="checkbox" v-model="item.isSelected" id="shoppingItemCheckbox">
+        <label class="form-check-label" >{{ item.itemName }}</label>
         <input type="number" min="0" max="999" v-model="item.quantity" id="shoppingItemQuantity">
         <button @click="removeItem">
             <i class="fa-solid fa-trash"></i>

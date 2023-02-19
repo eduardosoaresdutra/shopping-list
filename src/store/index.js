@@ -8,6 +8,9 @@ export default createStore({
     getters: {
         getItems(state) {
             return state.items
+        },
+        getItem: (state) => (index) => {
+            return state.items[index]
         }
     },
     mutations: {
@@ -15,13 +18,17 @@ export default createStore({
             state.items = getObject("itemStorage") || []
         },
         addItem(state, itemName) {
-            state.items.push({itemName: itemName, itemQuantity: 0})
+            state.items.push({itemId: Math.random(), itemName: itemName, itemQuantity: 0, isSelected: false})
             setObject("itemStorage", state.items)
         },
         removeItem(state, index) {
             state.items.splice(index, 1)
             setObject("itemStorage", state.items)
         },
+        updateItem(state, [index, newItem]) {
+            state.items[index] = newItem
+            setObject("itemStorage", state.items)
+        }
     },
     actions: {
         getItemsFromLocal(context) {
@@ -31,7 +38,10 @@ export default createStore({
             context.commit("addItem", payload)
         },
         removeItem(context, payload) {
-            context.commit("removeItem",payload)
+            context.commit("removeItem", payload)
+        },
+        updateItem(context, payload) {
+            context.commit("updateItem", payload)
         }
     },
     modules: {}
