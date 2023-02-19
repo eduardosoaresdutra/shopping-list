@@ -1,9 +1,18 @@
 <script>
 export default {
     name: "ShoppingItem",
+    data() {
+        return {
+            item: {
+                index: this.itemIndex,
+                name: this.itemName,
+                quantity: 0
+            }
+        }
+    },
     methods: {
-        removeItemEmitter: function () {
-            this.$emit("removeItem", this.itemIndex)
+        removeItem() {
+            this.$store.dispatch('removeItem', this.item.index)
         }
     },
     props: ["itemName", "itemIndex"]
@@ -16,10 +25,18 @@ export default {
         // justify-content: center;
         align-items: center;
 
-        input[type="checkbox"] {
+        input {
             margin: 0 0.6rem;
+        }
+
+        input[type="checkbox"] {
             width: 1.2rem;
             height: 1.2rem;
+        }
+
+        input[type="number"] {
+            width: 3rem;
+            height: 1.4rem;
         }
         
         label {
@@ -48,8 +65,8 @@ export default {
     <div class="shopping-item__wrapper d-flex align-items-center">
         <input class="form-check-input" type="checkbox" id="shoppingItemCheckbox">
         <label class="form-check-label" >{{ itemName }}</label>
-        <input type="number" id="shoppingItemQuantity">
-        <button @click="removeItemEmitter">
+        <input type="number" min="0" max="999" v-model="item.quantity" id="shoppingItemQuantity">
+        <button @click="removeItem">
             <i class="fa-solid fa-trash"></i>
         </button>
     </div>

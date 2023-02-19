@@ -5,8 +5,6 @@ import ShoppingItem from "../components/ShoppingItem.vue";
 import GenerateListButton from "@/components/GenerateListButton.vue";
 import ListComponent from "@/components/ListComponent.vue";
 
-import { setObject, getObject } from "@/utils/handleLocalStorage"
-
 export default { 
     name: "DashboardView",
     components: {
@@ -18,24 +16,17 @@ export default {
 },
     data() {
         return {
-            items: null,
-            list: {},
+            items: [],
             showGenerateListBtn: false,
             showList: false
         }
     },
     methods: {
-        addItem(itemName) {
-            this.items.push({itemName: itemName, itemQuantity: 0})
-        },
-        removeItem(index) {
-            this.items.splice(index, 1)
-        },
         toggleShowList() {
             this.showList === false ? this.showList = true : null
         },
         generateList() {
-            this.items.length > 0? this.toggleShowList : null
+            this.items.length > 0? this.toggleShowList() : null
         }
     },
     computed: {
@@ -43,12 +34,12 @@ export default {
             return this.items.length > 0 ? true : false
         }
     },
-    beforeMount() {
-        this.items = getObject("itemStorage") || []
+    mounted() {
+        this.$store.dispatch("getItemsFromLocal")
+        this.items = this.$store.getters.getItems
         this.showGenerateListBtn = this.checkGenerateListBtn
     },
     updated() {
-        setObject("itemStorage", this.items)
         this.showGenerateListBtn = this.checkGenerateListBtn
     }
 }
@@ -64,10 +55,10 @@ export default {
     <div class="dashboard-component__wrapper d-flex flex-column justify-content-center align-items-center">
         <div class="dashboard-component__wrapper__shopping-items">
             <div v-for="(item, index) in items" :key="index" class="item">
-                <ShoppingItem @removeItem="removeItem" :item-name="item.itemName" :item-index="index" />
+                <ShoppingItem :item-name="item.itemName" :item-index="index" />
             </div>
         </div>
-        <AddItemModal @getItemName="addItem" />
+        <AddItemModal />
         <NewItemButton />
         <GenerateListButton @generateList="generateList" v-if="showGenerateListBtn" itemsArray="items" />
         <ListComponent v-if="showList" />

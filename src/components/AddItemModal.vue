@@ -7,8 +7,8 @@ export default {
         }
     },
     methods: {
-        sendItemName: function () {
-            this.itemName ? this.$emit("getItemName", this.itemName) : null
+        addItem() {
+            this.$store.dispatch("addItem", this.itemName)
         }
     }
 }
@@ -49,7 +49,7 @@ export default {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button @click="sendItemName" type="button" class="btn btn-info w-100" data-bs-dismiss="modal">Adicionar Item</button>
+                    <button @click="addItem" type="button" class="btn btn-info w-100" data-bs-dismiss="modal">Adicionar Item</button>
                 </div>
             </div>
         </div>
