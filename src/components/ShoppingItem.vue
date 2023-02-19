@@ -1,12 +1,26 @@
 <script>
 export default {
     name: "ShoppingItem",
-    methods: {
-        removeItemEmitter: function () {
-            this.$emit("removeItem", this.itemIndex)
+    data() {
+        return {
+            item: null
         }
     },
-    props: ["itemName", "itemIndex"]
+    methods: {
+        removeItem() {
+            this.$store.dispatch("removeItem", this.itemIndex)
+        },
+        updateItem() {
+            this.$store.dispatch("updateItem", [this.itemIndex, this.item])
+        }
+    },
+    props: ["itemProp", "itemIndex"],
+    beforeMount() {
+        this.item = this.itemProp
+    },
+    updated() {
+        this.updateItem()
+    }
 }
 </script>
 
@@ -16,10 +30,18 @@ export default {
         // justify-content: center;
         align-items: center;
 
-        input[type="checkbox"] {
+        input {
             margin: 0 0.6rem;
+        }
+
+        input[type="checkbox"] {
             width: 1.2rem;
             height: 1.2rem;
+        }
+
+        input[type="number"] {
+            width: 3rem;
+            height: 1.4rem;
         }
         
         label {
@@ -46,10 +68,10 @@ export default {
 
 <template>
     <div class="shopping-item__wrapper d-flex align-items-center">
-        <input class="form-check-input" type="checkbox" id="shoppingItemCheckbox">
-        <label class="form-check-label" >{{ itemName }}</label>
-        <input type="number" id="shoppingItemQuantity">
-        <button @click="removeItemEmitter">
+        <input class="form-check-input" type="checkbox" v-model="item.isSelected" id="shoppingItemCheckbox">
+        <label class="form-check-label" >{{ item.itemName }}</label>
+        <input type="number" min="0" max="999" v-model="item.quantity" id="shoppingItemQuantity">
+        <button @click="removeItem">
             <i class="fa-solid fa-trash"></i>
         </button>
     </div>
