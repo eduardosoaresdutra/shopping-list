@@ -34,6 +34,8 @@ export default {
         },
         getChangesFromRender(item, itemIndex) {
             this.items[itemIndex] = item
+            this.itemsToGen = this.items.filter(item => item.isSelected)
+            this.$store.dispatch("setList", this.itemsToGen)
         }
     },
     computed: {
@@ -58,8 +60,7 @@ export default {
     },
     updated() {
         this.showGenerateListBtn = this.checkGenerateListBtn
-        // this.itemsToGen.length <= 0 ? this.showList = false : null
-        this.showList ? this.generateList() : null
+        this.itemsToGen.length <= 0 ? this.showList = false : null
     }
 }
 </script>
