@@ -27,10 +27,13 @@ export default {
             this.showList === false ? this.showList = true : null
         },
         generateList() {
-            this.items.length > 0? this.toggleShowList() : null
+            this.items.length > 0 ? this.toggleShowList() : null
 
             this.itemsToGen = this.items.filter(item => item.isSelected)
             this.$store.dispatch("setList", this.itemsToGen)
+        },
+        getChangesFromRender(item, itemIndex) {
+            this.items[itemIndex] = item
         }
     },
     computed: {
@@ -51,12 +54,12 @@ export default {
         this.itemsToGen = this.getList
         this.showGenerateListBtn = this.checkGenerateListBtn
 
-        this.itemsToGen ? this.showList = true : null
-        this.showList ? this.generateList : null
+        this.itemsToGen ? this.toggleShowList() : null
     },
     updated() {
         this.showGenerateListBtn = this.checkGenerateListBtn
-        this.itemsToGen.length <= 0 ? this.showList = false : null
+        // this.itemsToGen.length <= 0 ? this.showList = false : null
+        this.showList ? this.generateList() : null
     }
 }
 </script>
@@ -71,7 +74,7 @@ export default {
     <div class="dashboard-component__wrapper d-flex flex-column justify-content-center align-items-center">
         <div class="dashboard-component__wrapper__shopping-items">
             <div v-for="(item, index) in items" :key="item.itemId" class="item">
-                <ShoppingItem :itemProp="item" :item-index="index" />
+                <ShoppingItem @renderEvent="getChangesFromRender" :itemProp="item" :item-index="index" :showList="this.showList" />
             </div>
         </div>
         <AddItemModal />

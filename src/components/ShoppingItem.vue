@@ -12,9 +12,12 @@ export default {
         },
         updateItem() {
             this.$store.dispatch("updateItem", [this.itemIndex, this.item])
+        },
+        renderEvent() {
+            this.showList ? this.$emit("renderEvent", this.item, this.itemIndex) : null
         }
     },
-    props: ["itemProp", "itemIndex"],
+    props: ["itemProp", "itemIndex", "showList"],
     beforeMount() {
         this.item = this.itemProp
     },
@@ -79,7 +82,7 @@ export default {
     <div class="shopping-item__wrapper d-flex align-items-center">
         <input class="form-check-input" type="checkbox" v-model="item.isSelected" id="shoppingItemCheckbox">
         <label class="form-check-label" >{{ item.name }}</label>
-        <input type="number" min="0" max="999" v-model="item.quantity" id="shoppingItemQuantity">
+        <input @click="renderEvent" type="number" min="0" max="999" v-model="item.quantity" id="shoppingItemQuantity">
         <button @click="removeItem">
             <i class="fa-solid fa-trash"></i>
         </button>
