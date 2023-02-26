@@ -1,7 +1,6 @@
 <script>
 export default {
     name: "GenerateListButton",
-    props: ["itemsArray"],
     methods: {
         generateList() {
             this.$emit("generateList")
