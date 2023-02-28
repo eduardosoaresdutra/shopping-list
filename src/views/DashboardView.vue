@@ -19,7 +19,8 @@ export default {
             items: [],
             itemsToGen: null,
             showGenerateListBtn: false,
-            showList: false
+            showList: false,
+            editItems: true,
         }
     },
     methods: {
@@ -36,6 +37,9 @@ export default {
             this.items[itemIndex] = item
             this.itemsToGen = this.items.filter(item => item.isSelected)
             this.$store.dispatch("setList", this.itemsToGen)
+        },
+        toggleListSize() {
+            this.editItems = !this.editItems
         }
     },
     computed: {
@@ -73,14 +77,14 @@ export default {
 
 <template>
     <div class="dashboard-component__wrapper d-flex flex-column justify-content-center align-items-center">
-        <div class="dashboard-component__wrapper__shopping-items">
+        <div class="dashboard-component__wrapper__shopping-items" v-show="editItems">
             <div v-for="(item, index) in items" :key="item.itemId" class="item">
                 <ShoppingItem @renderEvent="getChangesFromRender" :itemProp="item" :item-index="index" :showList="this.showList" />
             </div>
+            <GenerateListButton @generateList="generateList" v-if="showGenerateListBtn" />
         </div>
         <AddItemModal />
         <NewItemButton />
-        <GenerateListButton @generateList="generateList" v-if="showGenerateListBtn" />
-        <ListComponent v-if="showList" :itemsProp="itemsToGen" />
+        <ListComponent @toggleListSize="toggleListSize" v-if="showList" :itemsProp="itemsToGen" />
     </div>
 </template>

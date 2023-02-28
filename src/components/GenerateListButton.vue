@@ -9,8 +9,19 @@ export default {
 }
 </script>
 
+<style scoped lang="scss">
+.generate-list-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+}
+</style>
+
 <template>
-    <button @click="generateList" type="button" class="btn btn-info">
-        Gerar lista
-    </button>
+    <div class="generate-list-wrapper">
+        <button @click="generateList" type="button" class="btn btn-info">
+            Gerar lista
+        </button>
+    </div>
 </template>

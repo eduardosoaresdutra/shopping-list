@@ -11,7 +11,12 @@ export default {
     components: {
         GeneratedComponent
     },
-    props: ["itemsProp"]
+    props: ["itemsProp"],
+    methods: {
+        toggleListSize() {
+            this.$emit("toggleListSize")
+        }
+    }
 }
 </script>
 
@@ -23,13 +28,25 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
         border-top: 2px solid black;
+
+        button {
+            left: 1.2rem;
+            bottom: 1rem;
+            position: absolute;
+            background: none;
+            border: none;
+
+            font-size: 2rem;
+        }
     }
 </style>
 
 <template>
     <div class="list-wrapper">
+        <button @click="toggleListSize">
+            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+        </button>
         <GeneratedComponent v-for="(item, index) in itemsProp" :itemProp="item" :itemIndex="index" :key="item.id" />
     </div>
 </template>
